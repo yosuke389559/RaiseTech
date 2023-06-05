@@ -37,16 +37,28 @@ application.cssに関するエラー表示
 ```bundle exec rake assets:precompile```  
 - 再度ブラウザで接続  
 組み込みサーバでの動作確認完了  
+![puma起動](image/puma起動.png)  
+
+![puma起動ログ１](image/puma起動ログ１.png)  
+
+![puma起動ログ２](image/puma起動ログ２.png)  
+
 
 ## unicornのみでの動作確認  
 - unicorn.rbの編集  
 - EC2インバウンドルールで8080を開放  
 - ブラウザでEC2のパブリックIP:8080で接続  
+![unicorn単体起動](image/unicorn単体起動.png)  
+
+![unicorn単体起動](image/unicorn単体起動２.png)  
+
+![unicorn単体起動３](image/unicorn単体起動３.png)
 
 ## nginxとunicornの連携  
 - nginxのインストールと接続  
 ```sudo amazon-linux extras install nginx```  
 ```sudo systemctl start ngix```  
+![nginx接続](image/nginx接続.png)
 - EC2パブリックIP:80で接続  
 welcame to nginx!
 - rails.confの作成  
@@ -71,6 +83,13 @@ unicornを起動
 EC2パブリックIP:80でブラウザ接続  
 ```ps -ef | grep unicorn | grep -v grep```  
 ```sudo systemctl status nginx```  
+![unicorn+nginx](image/unicorn+nginx1.png)  
+
+![](image/unicorn+nginx2.png)  
+
+![](image/unicorn+nginx3.png)  
+
+![](image/unicorn+nginx起動状況.png)  
 
 ## ALB経由の接続確認  
 ### ALBの作成  
@@ -84,6 +103,11 @@ HTTP-443　　　両者をインバウンドルールで開放
 HTTP-80  
 ターゲットをALBセキュリティグループを指定  
 インバウンドルールで開放  
+![](image/ALB.png)  
+
+![](image/ALBーTargetgroup.png)  
+
+
 ### ALB経由の接続  
 - development.rbの編集  
 config/environments/development.rb  
@@ -91,6 +115,11 @@ Rails.application.configure do
 config.hosts<<ALBのDNS名を追加  
 - 接続  
 ALBのDNSをコピー、ブラウザで接続  
+![](image/ALB経由起動.png)  
+
+![](image/ALB経由起動２.png)  
+
+![](image/ALB経由起動３.png)  
 
 ## S3への画像保存設定  
 - バケットの作成  
@@ -116,3 +145,14 @@ S3用ユーザーのものを記載
 - railsコンソールでの確認  
 ```rails c```でコンソール起動  
 ```Rails.application.credentials[:aws]```で、credentials.ymlの情報を確認  
+![](image/S3保存１.png)  
+
+![](image/S3保存２.png)  
+
+![](image/S3削除１.png)  
+
+![](image/S3削除２.png)  
+
+
+### 構成図  
+![](image/composition05.png)
