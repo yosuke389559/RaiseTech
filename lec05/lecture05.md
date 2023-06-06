@@ -105,7 +105,7 @@ HTTP-80
 インバウンドルールで開放  
 ![](image/ALB.png)  
 
-![](image/ヘルスチェック.png)  
+![](image/ALBーTargetgroup.png)  
 
 
 ### ALB経由の接続  
